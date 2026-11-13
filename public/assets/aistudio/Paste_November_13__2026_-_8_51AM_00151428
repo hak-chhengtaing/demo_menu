@@ -1,0 +1,987 @@
+PROJECT: COMPLETE DIGITAL RESTAURANT MENU & MANAGEMENT SYSTEM
+Act as a senior full-stack software architect, UI/UX designer, database engineer, cybersecurity specialist, and professional software developer.
+I want you to design and develop a complete, professional, production-ready Digital Restaurant Menu and Management System based on the attached reference image and system diagrams.
+This must be a real, functional web application, not just a UI design, prototype, static HTML page, or demonstration.
+The system must support four main interfaces:
+1.	Customer Mobile Digital Menu
+2.	Staff Order Management and Checkout
+3.	Chef Kitchen Display System (KDS)
+4.	Admin Dashboard and Restaurant Management
+The application should be modern, responsive, multilingual, secure, easy to operate, and suitable for real restaurants.
+________________________________________
+1. PROJECT OBJECTIVES
+Create a complete restaurant system that allows:
+•	Customers to scan a QR code at their restaurant table.
+•	Customers to view the digital food and beverage menu.
+•	Customers to select food, customize items, and add them to a cart.
+•	Customers to submit orders directly from their phones.
+•	Staff to receive, confirm, and manage customer orders.
+•	Chefs to receive orders and update preparation status.
+•	Staff to deliver food and update order status.
+•	Customers to pay using KHQR or cash, where enabled.
+•	Staff to verify payments and generate digital PDF receipts.
+•	Administrators to manage menus, categories, restaurant tables, staff, chefs, orders, payments, reports, and system settings.
+The system must support multiple restaurant tables and multiple orders within one active table session.
+2. TECHNOLOGY STACK
+Use the following technology architecture.
+Frontend
+•	React.js
+•	Vite
+•	HTML5
+•	CSS3
+•	JavaScript or TypeScript
+•	Responsive design
+•	React Router
+•	Axios or Fetch API
+•	A reusable component architecture
+•	Chart library for dashboard analytics
+Backend
+•	PHP 8.2 or newer
+•	Laravel REST API preferred
+•	RESTful API architecture
+•	Secure authentication and authorization
+•	Server-side validation
+•	Business logic separated into services
+•	Real-time notifications using WebSockets or an appropriate polling fallback
+Database
+•	MySQL 8 or MariaDB
+•	Relational database design
+•	Primary keys and foreign keys
+•	Database migrations
+•	Seeders and sample data
+•	Proper indexes and relationships
+Other Technologies
+•	QR Code generation
+•	PDF receipt generation
+•	KHQR Static QR payment display
+•	Real-time order notifications
+•	Image upload and storage
+•	Session management
+•	API documentation
+•	Environment configuration
+Keep the frontend and backend separate and communicate through secure REST APIs.
+3. MULTILINGUAL SYSTEM — ALL LANGUAGES
+Multilingual support is a major requirement.
+Build a scalable internationalization (i18n) system that can support any language that the administrator adds and configures.
+Initially include:
+•	English (EN)
+•	Khmer (KM)
+Prepare the architecture for additional languages, such as:
+•	Chinese Simplified (ZH)
+•	Vietnamese (VI)
+•	Japanese (JA)
+•	Korean (KO)
+•	French (FR)
+•	Other languages added later
+Requirements:
+1.	Add a language selector in the customer interface.
+2.	Add a language selector in staff, chef, and admin interfaces.
+3.	Translate buttons, navigation, notifications, forms, error messages, order statuses, reports, and other interface text.
+4.	Allow administrators to manage translation content.
+5.	Allow menu item names and descriptions to have separate translations.
+6.	Store translations in a structured format or translation database tables.
+7.	Never hardcode user-facing interface text directly into components.
+8.	Save the customer's selected language.
+9.	Support Khmer Unicode and appropriate Khmer fonts.
+10.	Support right-to-left layouts when an added language requires them.
+11.	Provide a sensible fallback language when a translation is missing.
+12.	Make it easy to add another language without rewriting the application.
+Do not use automatic translation as a substitute for editable, verified translations.
+4. CUSTOMER MOBILE DIGITAL MENU
+Design a mobile-first customer interface.
+The design should follow the attached reference image: clean, modern, green-themed, simple navigation, food photography, and easy-to-use shopping cart.
+4.1 QR Code Entry
+•	Each restaurant table has a unique QR code.
+•	Customer scans the QR code using a phone camera.
+•	Open the restaurant digital menu website.
+•	Identify the table automatically using a secure QR token.
+•	Display the correct table number.
+•	Prevent customers from changing the table number manually.
+•	Create or reuse an active table session.
+4.2 Home Page
+Display:
+•	Restaurant logo
+•	Restaurant name
+•	Cover image or banner
+•	Welcome message
+•	Language selector
+•	Search bar
+•	Food categories
+•	Popular food
+•	Recommended food
+•	New items
+•	Special offers
+•	Contact information
+4.3 Food Categories
+Examples:
+•	Main Dishes
+•	Appetizers
+•	Rice
+•	Noodles
+•	Soup
+•	Seafood
+•	Drinks
+•	Coffee
+•	Desserts
+•	Specials
+Category requirements:
+•	Category image
+•	Category name
+•	Category description
+•	Display order
+•	Active/inactive status
+•	Multilingual category names
+4.4 Food Menu
+Each food item should include:
+•	Food image
+•	Food name
+•	Food description
+•	Food category
+•	Price
+•	Available languages
+•	Availability status
+•	Popular badge
+•	Recommended badge
+•	Preparation information where appropriate
+Customers can:
+•	Browse food
+•	Search food
+•	Filter by category
+•	View food details
+•	Select quantity
+•	Add special instructions
+•	Choose available options or modifiers
+•	Add items to cart
+Unavailable items must display an unavailable status and cannot be ordered.
+4.5 Food Customization
+Support optional customization:
+•	Size
+•	Portion
+•	Spice level
+•	Sugar level
+•	Ice level
+•	Extra toppings
+•	Add-ons
+•	Additional ingredients
+•	Special instructions
+Allow the administrator to configure customization groups and additional prices.
+4.6 Shopping Cart
+Display:
+•	Food image
+•	Item name
+•	Selected options
+•	Quantity
+•	Unit price
+•	Item subtotal
+•	Remove item
+•	Increase/decrease quantity
+•	Order notes
+•	Total amount
+Include:
+•	Clear cart
+•	Continue browsing
+•	Submit order
+Calculate prices on the backend. Never trust prices sent only by the customer's browser.
+4.7 Submit Order
+After clicking "Place Order":
+•	Validate the active table session.
+•	Validate menu item availability.
+•	Validate prices and quantities.
+•	Create an order.
+•	Create order items.
+•	Store the current unit-price snapshot.
+•	Send a notification to staff.
+•	Send the order to the chef after staff confirmation.
+Show a successful order confirmation and order number.
+4.8 Order Tracking
+Display real-time or frequently refreshed status:
+•	Order Placed
+•	Confirmed
+•	Cooking
+•	Ready
+•	Served
+•	Completed
+Show:
+•	Order number
+•	Table number
+•	Ordered food
+•	Quantities
+•	Total amount
+•	Current status
+•	Date and time
+Customers should be able to view their previous orders within the active table session.
+5. STAFF ORDER MANAGEMENT AND CHECKOUT
+Create a responsive staff interface for desktop, tablet, and mobile.
+5.1 Staff Login
+•	Username or email
+•	Password
+•	Remember me
+•	Secure authentication
+•	Logout
+Only authorized staff can access staff functions.
+5.2 Staff Dashboard
+Display:
+•	New orders
+•	Confirmed orders
+•	Cooking orders
+•	Ready orders
+•	Served orders
+•	Unpaid tables
+•	Active table sessions
+•	Notifications
+5.3 Order Management
+When a customer submits an order:
+•	Display a real-time notification.
+•	Show the table number.
+•	Show the order number.
+•	Show all ordered food.
+•	Show quantities and notes.
+•	Show order date and time.
+•	Provide Confirm and View Details buttons.
+Staff can:
+•	Review orders.
+•	Confirm orders.
+•	View order details.
+•	Monitor preparation status.
+•	Receive a Ready notification from the chef.
+•	Deliver food to the correct table.
+•	Mark the order as Served.
+5.4 Table Management
+Display restaurant tables with statuses:
+•	Available
+•	Occupied
+•	Ordering
+•	Cooking
+•	Ready
+•	Unpaid
+•	Checkout
+•	Closed
+Each table should show:
+•	Table number
+•	Current session
+•	Active orders
+•	Total amount
+•	Payment status
+•	Session start time
+5.5 Checkout Management
+When the customer requests checkout:
+1.	Staff selects the correct table.
+2.	System calculates all unpaid orders within the active table session.
+3.	Display the bill details.
+4.	Show subtotal.
+5.	Show discounts where applicable.
+6.	Show service charge or tax when configured.
+7.	Calculate the final amount.
+8.	Select the payment method.
+Payment methods:
+•	KHQR
+•	Cash
+Cash payments should be configurable.
+5.6 Static KHQR Payment
+Implement Static KHQR payment according to the supplied system proposal.
+Process:
+1.	Staff selects KHQR.
+2.	System displays the restaurant's configured Static KHQR.
+3.	Customer scans the QR code.
+4.	Customer enters the amount and transfers the payment.
+5.	Staff checks the actual incoming payment using the restaurant's banking application.
+6.	Staff manually confirms that the received amount matches the bill.
+7.	Staff clicks "Mark as Paid".
+8.	System saves the payment record.
+9.	System generates a PDF receipt.
+10.	System closes the table session once all required conditions are satisfied.
+Important:
+Do not pretend Static KHQR automatically confirms payments.
+Do not display a payment as successful until an authorized staff member has verified it.
+Keep the payment architecture extendable for an officially supported payment API in the future.
+5.7 PDF Receipt
+Generate a professional receipt containing:
+•	Restaurant logo
+•	Restaurant name
+•	Restaurant address
+•	Contact information
+•	Receipt number
+•	Order number
+•	Table number
+•	Staff name
+•	Date and time
+•	Food and beverage names
+•	Quantities
+•	Unit prices
+•	Subtotals
+•	Discount
+•	Tax or service charge, if configured
+•	Grand total
+•	Payment method
+•	Payment status
+•	Footer and thank-you message
+Support Khmer and English receipt output.
+Provide buttons to:
+•	Download PDF
+•	Print receipt
+•	View receipt
+6. CHEF KITCHEN DISPLAY SYSTEM (KDS)
+Design a tablet-friendly kitchen screen.
+Use a dark interface similar to the attached reference image.
+6.1 Chef Login
+Only authorized chefs can access the kitchen interface.
+6.2 Kitchen Dashboard
+Display:
+•	Incoming orders
+•	Confirmed orders
+•	Cooking orders
+•	Ready orders
+•	Notifications
+•	Current date and time
+6.3 Order Cards
+Each card must contain:
+•	Table number
+•	Order number
+•	Ordered food
+•	Food quantities
+•	Special instructions
+•	Order received time
+•	Preparation time
+•	Current status
+6.4 Kitchen Workflow
+1.	Staff confirms the order.
+2.	The order appears on the chef display.
+3.	Chef reviews the order.
+4.	Chef clicks "Start Cooking".
+5.	Status changes to Cooking.
+6.	Chef prepares the food.
+7.	Chef clicks "Ready".
+8.	System notifies staff immediately.
+9.	Staff receives the Ready notification.
+10.	Staff delivers the order to the correct table.
+Chef actions:
+•	Start Cooking
+•	Mark Ready
+•	View Order Details
+Chef must not access administrator functions or payment management.
+6.5 Kitchen Screen Features
+•	Automatic order updates
+•	Sound notification for new orders
+•	Large and readable text
+•	Color-coded statuses
+•	Order preparation timer
+•	Table number highlighted
+•	Sort by oldest order
+•	Filter by status
+•	Support multiple simultaneous orders
+7. ADMIN DASHBOARD
+Create a professional desktop administration dashboard.
+Follow the attached image's visual direction:
+•	Dark blue or purple sidebar
+•	White dashboard background
+•	Modern navigation
+•	Statistics cards
+•	Charts and graphs
+•	Data tables
+•	Search and filtering
+•	Responsive layout
+7.1 Dashboard Overview
+Display:
+•	Total sales
+•	Total orders
+•	Average order value
+•	Total customers or table sessions
+•	Daily revenue
+•	Weekly revenue
+•	Monthly revenue
+•	Best-selling foods
+•	Payment methods
+•	Active tables
+•	Unpaid orders
+7.2 Menu Management
+Administrators can:
+•	Add food
+•	Edit food
+•	Delete food
+•	Upload food images
+•	Set prices
+•	Change availability
+•	Manage food descriptions
+•	Manage food categories
+•	Configure food modifiers
+•	Mark popular items
+•	Manage translated menu content
+7.3 Category Management
+•	Add categories
+•	Edit categories
+•	Delete categories
+•	Upload category images
+•	Set category display order
+•	Enable or disable categories
+•	Manage translations
+7.4 Table Management
+•	Add tables
+•	Edit tables
+•	Delete tables
+•	Generate unique QR codes
+•	Download table QR codes
+•	Print QR codes
+•	Activate/deactivate tables
+•	View table sessions
+•	View table order history
+7.5 User and Staff Management
+Manage:
+•	Admin accounts
+•	Staff accounts
+•	Chef accounts
+Features:
+•	Create accounts
+•	Edit accounts
+•	Disable accounts
+•	Reset passwords
+•	Assign roles
+•	Manage permissions
+•	View login activity
+7.6 Order Management
+•	View all orders
+•	Search orders
+•	Filter orders
+•	View order details
+•	View order history
+•	Track order statuses
+•	View table sessions
+•	View cancelled orders
+•	Export order information
+7.7 Payment Management
+•	View all payment records
+•	View KHQR payments
+•	View cash payments when enabled
+•	View unpaid amounts
+•	View payment dates
+•	View staff who verified payments
+•	Review payment history
+•	Export payment reports
+7.8 Reports and Analytics
+Provide:
+•	Daily sales report
+•	Weekly sales report
+•	Monthly sales report
+•	Yearly sales report
+•	Best-selling items
+•	Least-selling items
+•	Category sales
+•	Revenue by payment method
+•	Order count
+•	Average order value
+•	Table usage
+•	Sales charts
+•	Date-range filtering
+Provide export to PDF, CSV, or Excel.
+7.9 Expense Management
+Make expense tracking an optional module that can be enabled by the administrator.
+When enabled, include:
+•	Expense categories
+•	Expense description
+•	Amount
+•	Date
+•	Uploaded receipt
+•	Created by
+•	Expense reports
+Do not include expenses in the profit calculation unless the module is enabled and expense records are available.
+7.10 System Settings
+Include:
+•	Restaurant information
+•	Logo
+•	Restaurant address
+•	Contact details
+•	Default language
+•	Available languages
+•	Currency settings
+•	KHQR configuration
+•	Tax settings
+•	Service charge
+•	Receipt settings
+•	Order notification settings
+•	Business hours
+•	Timezone
+•	Theme settings
+Default timezone: Asia/Phnom_Penh.
+Support KHR and USD through configurable currency settings.
+8. DATABASE DESIGN AND ERD
+Create a properly normalized relational database.
+The following core tables must exist.
+USERS
+•	user_id (PK)
+•	name
+•	username
+•	email
+•	password_hash
+•	role
+•	is_active
+•	created_at
+•	updated_at
+Roles:
+•	admin
+•	staff
+•	chef
+TABLES
+•	table_id (PK)
+•	table_number
+•	qr_token
+•	is_active
+•	created_at
+•	updated_at
+TABLE_SESSIONS
+•	session_id (PK)
+•	table_id (FK)
+•	opened_at
+•	closed_at
+•	status
+•	created_at
+CATEGORIES
+•	category_id (PK)
+•	name
+•	description
+•	image_url
+•	is_active
+•	display_order
+MENU_ITEMS
+•	menu_item_id (PK)
+•	category_id (FK)
+•	name
+•	description
+•	price
+•	image_url
+•	is_available
+•	created_at
+•	updated_at
+ORDERS
+•	order_id (PK)
+•	session_id (FK)
+•	staff_id (FK, nullable)
+•	order_number
+•	status
+•	notes
+•	total_amount
+•	created_at
+•	updated_at
+ORDER_ITEMS
+•	order_item_id (PK)
+•	order_id (FK)
+•	menu_item_id (FK)
+•	quantity
+•	unit_price
+•	subtotal
+•	selected_options
+•	special_instructions
+IMPORTANT: unit_price must be stored as a price snapshot so historical orders do not change when menu prices are edited.
+PAYMENTS
+•	payment_id (PK)
+•	session_id (FK)
+•	amount
+•	method
+•	status
+•	verified_by (FK, nullable)
+•	paid_at
+•	created_at
+ADDITIONAL TABLES
+Create additional tables where appropriate:
+•	menu_item_translations
+•	category_translations
+•	languages
+•	menu_item_options
+•	menu_item_option_values
+•	order_item_options
+•	discounts
+•	expenses
+•	expense_categories
+•	notifications
+•	audit_logs
+•	restaurant_settings
+•	receipts
+•	password_reset_tokens
+Make sure all foreign keys and database relationships are correct.
+Core relationships:
+•	One category has many menu items.
+•	One restaurant table has many table sessions.
+•	One table session has many orders.
+•	One table session can have multiple payment records when required.
+•	One order has many order items.
+•	One menu item can appear in many order items.
+•	One staff user can manage multiple orders.
+•	One menu item has translations in multiple languages.
+Provide:
+1.	Full ERD.
+2.	SQL schema.
+3.	Migrations.
+4.	Model relationships.
+5.	Seeders.
+6.	Sample restaurant data.
+9. ORDER AND TABLE SESSION BUSINESS LOGIC
+The system must handle multiple orders within the same active table session.
+Example:
+Table 5:
+•	First order: Beef Burger + Coca Cola.
+•	Second order: Fried Rice.
+•	Third order: Spring Rolls.
+All orders must belong to the correct active table session.
+The checkout screen must calculate the unpaid balance for that session without accidentally charging previously paid orders again.
+Important rules:
+•	Never create duplicate orders from repeated submissions.
+•	Never allow an order for an inactive table.
+•	Prevent unauthorized table-session changes.
+•	Maintain order and payment history.
+•	Do not close a table session while unpaid balances remain.
+•	Do not change completed payment records without an auditable adjustment process.
+10. COMPLETE SYSTEM WORKFLOW
+Implement all four workflows.
+CUSTOMER WORKFLOW
+START
+→ Scan QR Code on table
+→ Open React digital menu
+→ Identify table number
+→ Browse food menu
+→ Select food
+→ Add items to cart
+→ Submit order
+→ Create or append table session
+→ Wait for food
+→ Track order status
+→ Eat meal
+→ Request checkout from staff
+→ Pay using KHQR or cash
+→ Staff verifies payment
+→ Receive digital PDF receipt
+→ END
+STAFF WORKFLOW
+START / Login
+→ Receive new-order notification
+→ Review order
+→ Confirm order
+→ Wait for chef to mark Ready
+→ Receive Ready notification
+→ Deliver food to correct table
+→ Mark order as Served
+→ Customer requests checkout
+→ Display bill
+→ Show KHQR or select cash payment
+→ Verify incoming payment
+→ Mark Paid
+→ Generate PDF receipt
+→ Close table session when eligible
+→ END
+CHEF WORKFLOW
+START / Login
+→ View incoming confirmed orders in real time
+→ Select order
+→ Mark Cooking
+→ Prepare food
+→ Mark Ready
+→ System notifies Staff
+→ END
+ADMIN WORKFLOW
+START / Login
+→ Open Dashboard
+→ Manage menu
+→ Manage categories
+→ Manage restaurant tables
+→ Generate QR codes
+→ Manage staff accounts
+→ Manage chef accounts
+→ Manage orders
+→ Manage payments
+→ Review sales reports
+→ Review analytics
+→ Manage system settings
+→ END
+11. API STRUCTURE
+Build a well-organized REST API.
+Example API groups:
+Authentication:
+•	POST /api/auth/login
+•	POST /api/auth/logout
+•	GET /api/auth/me
+Public restaurant and menu:
+•	GET /api/restaurant
+•	GET /api/languages
+•	GET /api/tables/qr/{token}
+•	GET /api/categories
+•	GET /api/menu-items
+•	GET /api/menu-items/{id}
+Customer:
+•	POST /api/customer/sessions
+•	GET /api/customer/sessions/{id}
+•	POST /api/customer/orders
+•	GET /api/customer/orders/{id}
+•	GET /api/customer/sessions/{id}/orders
+Staff:
+•	GET /api/staff/dashboard
+•	GET /api/staff/orders
+•	POST /api/staff/orders/{id}/confirm
+•	POST /api/staff/orders/{id}/served
+•	GET /api/staff/tables
+•	POST /api/staff/checkout
+•	POST /api/staff/payments/verify
+•	GET /api/staff/receipts/{id}
+Chef:
+•	GET /api/chef/orders
+•	POST /api/chef/orders/{id}/cooking
+•	POST /api/chef/orders/{id}/ready
+Admin:
+•	GET /api/admin/dashboard
+•	CRUD /api/admin/menu-items
+•	CRUD /api/admin/categories
+•	CRUD /api/admin/tables
+•	CRUD /api/admin/users
+•	CRUD /api/admin/languages
+•	CRUD /api/admin/translations
+•	GET /api/admin/orders
+•	GET /api/admin/payments
+•	GET /api/admin/reports
+•	CRUD /api/admin/settings
+These are proposed route examples. Organize the final API consistently and document request parameters, response formats, validation errors, and permission requirements.
+12. UI/UX DESIGN REQUIREMENTS
+Use the attached reference image as the main visual design direction.
+Customer Mobile UI
+•	Green-based visual identity.
+•	Large food photography.
+•	Rounded cards.
+•	Clear buttons.
+•	Simple category navigation.
+•	Mobile-first layout.
+•	Bottom navigation where useful.
+•	Easy cart access.
+Chef KDS Tablet UI
+•	Dark background.
+•	High-contrast text.
+•	Kitchen-friendly large buttons.
+•	Order cards.
+•	Color-coded status labels.
+•	Preparation timers.
+•	Notification indicators.
+Staff Checkout UI
+•	Professional blue-based interface.
+•	Sidebar navigation.
+•	Clear order summary.
+•	Large KHQR payment area.
+•	Payment verification status.
+•	Print and download receipt buttons.
+Admin Dashboard
+•	Purple or blue sidebar.
+•	Light dashboard background.
+•	Statistics cards.
+•	Sales charts.
+•	Revenue charts.
+•	Category charts.
+•	Recent order tables.
+•	Clean professional layout.
+Design every screen consistently using reusable components.
+The application must work on:
+•	Mobile phones
+•	Tablets
+•	Laptops
+•	Desktop computers
+Avoid overcrowded layouts, tiny buttons, broken responsive behavior, and inconsistent spacing.
+13. SECURITY REQUIREMENTS
+Implement production-level security:
+•	Password hashing using secure standard algorithms.
+•	Role-based access control (RBAC).
+•	Secure login and logout.
+•	Session or token security.
+•	Prepared SQL statements or ORM.
+•	Server-side validation.
+•	Protection against SQL injection.
+•	Protection against XSS.
+•	CSRF protection where applicable.
+•	Secure file upload validation.
+•	Secure QR tokens.
+•	Rate limiting.
+•	HTTPS deployment.
+•	Audit logs for important operations.
+•	Appropriate API authorization.
+•	Secure environment variables.
+•	Regular database backup support.
+Never store plaintext passwords.
+Customers must not access staff, chef, or admin functions.
+Staff must not access admin-only management functions.
+Chefs must only access authorized kitchen functions.
+14. NOTIFICATIONS AND REAL-TIME UPDATES
+Implement notifications for:
+•	New customer orders.
+•	Staff confirmation.
+•	Chef starting preparation.
+•	Food marked Ready.
+•	Food marked Served.
+•	Checkout requests.
+•	Payment verification.
+•	Important administrator activities.
+Use WebSockets where practical. Provide a reliable polling fallback.
+Notifications should update the correct interface without requiring manual page refreshes.
+15. PROJECT FOLDER STRUCTURE
+Organize the project professionally.
+Example:
+restaurant-digital-system/
+│
+├── frontend/
+│ ├── public/
+│ ├── src/
+│ │ ├── assets/
+│ │ ├── components/
+│ │ ├── layouts/
+│ │ ├── pages/
+│ │ │ ├── customer/
+│ │ │ ├── staff/
+│ │ │ ├── chef/
+│ │ │ └── admin/
+│ │ ├── routes/
+│ │ ├── services/
+│ │ ├── hooks/
+│ │ ├── contexts/
+│ │ ├── i18n/
+│ │ ├── utils/
+│ │ ├── styles/
+│ │ └── App.jsx
+│ ├── package.json
+│ └── .env.example
+│
+├── backend/
+│ ├── app/
+│ │ ├── Models/
+│ │ ├── Http/
+│ │ │ ├── Controllers/
+│ │ │ ├── Middleware/
+│ │ │ └── Requests/
+│ │ ├── Services/
+│ │ ├── Policies/
+│ │ └── Notifications/
+│ ├── database/
+│ │ ├── migrations/
+│ │ └── seeders/
+│ ├── routes/
+│ ├── storage/
+│ ├── tests/
+│ ├── composer.json
+│ └── .env.example
+│
+├── database/
+│ └── schema.sql
+│
+├── documentation/
+│ ├── system-architecture.md
+│ ├── database-erd.md
+│ ├── api-documentation.md
+│ ├── installation-guide.md
+│ └── user-manual.md
+│
+├── docker-compose.yml
+└── README.md
+You may improve this structure when necessary, but keep the code organized and maintainable.
+16. TESTING REQUIREMENTS
+Test all major workflows.
+Customer:
+•	Scan a valid QR code.
+•	Open the correct table menu.
+•	Change language.
+•	Browse menu.
+•	Add food to cart.
+•	Submit an order.
+•	View order status.
+Staff:
+•	Receive new orders.
+•	Confirm orders.
+•	View ready orders.
+•	Mark orders as served.
+•	Calculate checkout correctly.
+•	Verify KHQR payment manually.
+•	Register cash payment if enabled.
+•	Generate PDF receipt.
+•	Close an eligible table session.
+Chef:
+•	Receive confirmed orders.
+•	Mark orders Cooking.
+•	Mark orders Ready.
+•	Ensure staff receives notifications.
+Admin:
+•	Add/edit/delete menu items.
+•	Manage categories.
+•	Generate table QR codes.
+•	Manage accounts.
+•	View reports.
+•	Manage languages and translations.
+Security:
+•	Test role restrictions.
+•	Test invalid login.
+•	Test invalid QR tokens.
+•	Test invalid order quantities.
+•	Test incorrect payment amounts.
+•	Test repeated order submissions.
+•	Test unauthorized API requests.
+17. REQUIRED DELIVERABLES
+I expect a complete working project, not only explanations.
+Provide:
+1.	Full system architecture.
+2.	Complete database ERD.
+3.	Complete SQL database structure.
+4.	Full backend source code.
+5.	Full frontend source code.
+6.	All customer interface pages.
+7.	All staff interface pages.
+8.	All chef KDS pages.
+9.	All admin dashboard pages.
+10.	Multilingual translation structure.
+11.	REST API implementation.
+12.	QR code generation.
+13.	Order management.
+14.	Payment management.
+15.	PDF receipt generation.
+16.	Notifications and live order updates.
+17.	Sample data and demo accounts.
+18.	Automated tests.
+19.	.env.example files.
+20.	Docker configuration where appropriate.
+21.	Complete installation instructions.
+22.	Complete deployment instructions.
+23.	User documentation.
+18. DEVELOPMENT RULES
+Follow these rules throughout development:
+•	Build a real functional application.
+•	Do not generate only screenshots or UI mockups.
+•	Do not leave important features as TODO comments.
+•	Do not use fake payment verification.
+•	Do not use fake order data in production code.
+•	Connect all frontend features to the backend.
+•	Create actual database relationships.
+•	Ensure buttons perform their intended functions.
+•	Ensure forms validate and save data correctly.
+•	Use reusable components.
+•	Use consistent naming conventions.
+•	Use clean, maintainable code.
+•	Handle loading, success, empty, and error states.
+•	Include meaningful error messages.
+•	Make all four interfaces work with the same database.
+•	Verify the complete workflow from customer order to payment and receipt.
+19. DEVELOPMENT EXECUTION PLAN
+Build the project in phases.
+Phase 1: Analyze reference documents and finalize requirements.
+Phase 2: Design system architecture, database ERD, and project folder structure.
+Phase 3: Build database migrations, models, and backend authentication.
+Phase 4: Build customer mobile digital menu.
+Phase 5: Build staff order management and checkout.
+Phase 6: Build chef kitchen display system.
+Phase 7: Build admin dashboard and management modules.
+Phase 8: Implement multilingual support.
+Phase 9: Implement QR code, notifications, KHQR workflow, and PDF receipts.
+Phase 10: Complete security checks, testing, documentation, and deployment.
+Do not skip phases or build disconnected features.
+After completing each phase:
+•	Explain what was implemented.
+•	List created files.
+•	Explain how to run it.
+•	Report any limitations.
+•	Test the implemented features before continuing.
+20. FINAL INSTRUCTION
+Begin by analyzing all attached reference materials, including:
+•	Digital Restaurant System Showcase image.
+•	Digital Menu Restaurant System Diagrams PDF.
+•	flow_menu_digital PDF.
+Use these materials as the primary functional and visual references.
+Preserve their four-interface structure and their intended customer, staff, chef, and admin workflows.
+Where the reference materials do not define a technical detail, propose a sensible professional implementation and explain the decision.
+Start with the complete system architecture, database ERD, and project folder structure. Then begin building the actual application with working source code.
+The final result must be a professional, multilingual, secure, responsive, complete Digital Restaurant Menu and Management System that can be installed and used by a real restaurant.
+

@@ -1,0 +1,17 @@
+services:
+  dineeasy:
+    build: .
+    image: dineeasy-restaurant-system:latest
+    container_name: dineeasy-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      TZ: Asia/Phnom_Penh
+      DB_PATH: /app/database/restaurant.db
+      SESSION_SECRET: ${SESSION_SECRET:-change-this-secret-in-production}
+    volumes:
+      - ./database:/app/database
+      - ./uploads:/app/uploads

@@ -1,0 +1,8 @@
+{
+  "name": "DineEasy — Digital Restaurant Menu & Management System",
+  "description": "Complete multilingual digital restaurant menu, QR table ordering, staff checkout with Static KHQR verification, Chef Kitchen Display System (KDS), and Admin analytics dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
